@@ -29,4 +29,6 @@ public class Prestamo implements Serializable {
     @ManyToMany
     private List<Libro> libros;
 
+    private boolean activo;
+
 }

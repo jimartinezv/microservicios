@@ -1,6 +1,8 @@
 package co.edu.uniquindio.biblioteca.servicios;
 
+import co.edu.uniquindio.biblioteca.dto.ClienteGet;
 import co.edu.uniquindio.biblioteca.dto.PrestamoDTO;
+import co.edu.uniquindio.biblioteca.dto.PrestamoGet;
 import co.edu.uniquindio.biblioteca.entity.Cliente;
 import co.edu.uniquindio.biblioteca.entity.Libro;
 import co.edu.uniquindio.biblioteca.entity.Prestamo;
@@ -9,10 +11,13 @@ import co.edu.uniquindio.biblioteca.repo.PrestamoRepo;
 import co.edu.uniquindio.biblioteca.servicios.excepciones.ClienteNoEncontradoException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -52,16 +57,35 @@ public class PrestamoServicio {
         return prestamoRepo.save(prestamo);
     }
 
+    //Retorne la lista de préstamos realizados en una fecha dada.
+    public List<PrestamoGet> findByDate(LocalDate fecha){
+        return prestamoRepo.listarPrestamosByDate(fecha).stream()
+                .map(p-> convertir(p))
+                .collect(Collectors.toList());
 
-    //TODO Completar
-    public List<PrestamoDTO> findByCodigoCliente(long codigoCliente){
+    }
 
-        return null;
+
+    //Retorne la lista de préstamos de un cliente dado su código.
+    public List<PrestamoGet> findByCodigoCliente(long codigoCliente){
+
+        return prestamoRepo.listarPrestamosByCliente(codigoCliente).stream()
+                .map(p -> convertir(p))
+                .collect(Collectors.toList());
+
+    }
+
+    private PrestamoGet convertir(Prestamo prestamo){
+        //long clienteID, List<String> isbnLibros, LocalDateTime fechaDevolucion) {
+        //return new PrestamoDTO(prestamo.getCliente().getCodigo(), prestamo.getLibros(),prestamo.getFechaDevolucion());
+        return new PrestamoGet(prestamo.getCodigo(), prestamo.getFechaPrestamo(), prestamo.getFechaDevolucion(), prestamo.getLibros());
+        //return new ClienteGet(cliente.getCodigo(), cliente.getNombre(), cliente.getEmail(), cliente.getTelefono());
     }
 
     //TODO usar DTO y la exepción propia de préstamo
     public Prestamo findById(long codigoPrestamo){
         return prestamoRepo.findById(codigoPrestamo).orElseThrow(()-> new RuntimeException("No existe"));
     }
+
 
 }
