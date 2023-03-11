@@ -1,1 +1,4 @@
-Estes es el archivo readme
+Integrantes:
+Juan Esteban Nieto
+David Trejos
+Jorge Iván Martínez

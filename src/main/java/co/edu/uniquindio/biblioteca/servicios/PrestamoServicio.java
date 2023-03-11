@@ -82,6 +82,14 @@ public class PrestamoServicio {
         //return new ClienteGet(cliente.getCodigo(), cliente.getNombre(), cliente.getEmail(), cliente.getTelefono());
     }
 
+    public List<PrestamoGet> findByIsbnLibro(String isbn){
+        return null;
+        //return prestamoRepo.listarPrestamosByCliente(codigoCliente).stream()
+          //      .map(p -> convertir(p))
+            //    .collect(Collectors.toList());
+
+    }
+
     //TODO usar DTO y la exepción propia de préstamo
     public Prestamo findById(long codigoPrestamo){
         return prestamoRepo.findById(codigoPrestamo).orElseThrow(()-> new RuntimeException("No existe"));
