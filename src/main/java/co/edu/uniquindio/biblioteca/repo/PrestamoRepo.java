@@ -19,5 +19,5 @@ public interface PrestamoRepo extends JpaRepository<Prestamo, Long> {
     List<Prestamo> listarPrestamosByDate(LocalDate fecha);
 
     @Query("select count(p) from Prestamo p join Libro l where p.activo=true and l.isbn=:isbn")
-    List<Prestamo> contarPrestamoByLibro(String isbn);
+    Integer contarPrestamoByLibro(String isbn);
 }

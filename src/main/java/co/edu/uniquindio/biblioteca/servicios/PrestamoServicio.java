@@ -82,8 +82,8 @@ public class PrestamoServicio {
         //return new ClienteGet(cliente.getCodigo(), cliente.getNombre(), cliente.getEmail(), cliente.getTelefono());
     }
 
-    public List<PrestamoGet> findByIsbnLibro(String isbn){
-        return null;
+    public Integer findByIsbnLibro(String isbn){
+        return prestamoRepo.contarPrestamoByLibro(isbn);
         //return prestamoRepo.listarPrestamosByCliente(codigoCliente).stream()
           //      .map(p -> convertir(p))
             //    .collect(Collectors.toList());
